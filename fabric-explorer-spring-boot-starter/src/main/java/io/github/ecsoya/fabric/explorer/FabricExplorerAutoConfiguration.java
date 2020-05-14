@@ -14,6 +14,10 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import io.github.ecsoya.fabric.boot.SpringFabricGatewayAutoConfigure;
 import io.github.ecsoya.fabric.explorer.controller.FabricExplorerController;
 
+/**
+ * 初始化区块链浏览器的相关配置。
+ * 包括对  FabricExplorerHandlerMapping 和 FabricExplorerController 及 ResourceBundleMessageSource 的初始化。
+ */
 @Configuration
 @ImportAutoConfiguration(SpringFabricGatewayAutoConfigure.class)
 @EnableConfigurationProperties(FabricExplorerProperties.class)

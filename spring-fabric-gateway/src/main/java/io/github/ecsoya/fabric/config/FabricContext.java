@@ -109,6 +109,11 @@ public class FabricContext {
 		return null;
 	}
 
+
+	/**
+	 * 初始化操作流程。
+	 * @throws FabricException
+	 */
 	@PostConstruct
 	private void initialize() throws FabricException {
 
@@ -121,13 +126,14 @@ public class FabricContext {
 			throw new FabricException(
 					"Initialize fabric gateway failed with invalid 'channel' name. Please make sure the channel is configured corrected by 'spring.fabric.channel'.");
 		}
-
+		//链码相关属性。
 		FabricChaincodeProperties chaincode = properties.getChaincode();
 		if (chaincode == null || chaincode.getIdentify() == null || chaincode.getIdentify().equals("")) {
 			throw new FabricException(
 					"Initialize fabric gateway failed with invalid 'chaincode' name. Please make sure the chaincode is configured corrected by 'spring.fabric.chaincode'.");
 		}
 
+		//区块链网络相关。
 		InputStream configFile = properties.getNetworkContents();
 		if (configFile == null) {
 			throw new FabricException(
@@ -155,8 +161,10 @@ public class FabricContext {
 			logger.debug("Initialize Fabric Context: missing identity for wallet, and using default value: admin");
 		}
 
+		//拿到钱包对象。
 		Wallet wallet = createWallet(walletProps);
 
+		//钱包 -> 组织的详细信息 -> admin peer -> 用户签名证书 -> 然后将身份放入到此钱包。
 		if (wallet instanceof InMemoryWallet) {
 			OrgInfo client = config.getClientOrganization();
 			if (client != null) {
@@ -188,6 +196,8 @@ public class FabricContext {
 		}
 
 		logger.debug("Initialize Gateway... ");
+
+		//配置区块链网络并创建对应网关对象。
 		configFile = properties.getNetworkContents();
 		try {
 			builder = Gateway.createBuilder().identity(wallet, identityName).networkConfig(configFile);
@@ -204,11 +214,17 @@ public class FabricContext {
 
 	}
 
+	/**
+	 * 从内存中创建钱包。
+	 * @param config
+	 * @return
+	 */
 	private Wallet createWallet(FabricWalletProperties config) {
 		if (config == null || config.isMemory() || config.getFile() == null || config.getFile().equals("")) {
 			return Wallet.createInMemoryWallet();
 		} else {
 			try {
+				//从对应文件系统去创建钱包对象。
 				return Wallet.createFileSystemWallet(new File(config.getFile()).toPath());
 			} catch (IOException e) {
 				return Wallet.createInMemoryWallet();
@@ -216,6 +232,10 @@ public class FabricContext {
 		}
 	}
 
+	/**
+	 * 获取智能合约。
+	 * @return
+	 */
 	private FabricContract getContract() {
 		if (contract == null) {
 			if (network == null) {
@@ -289,6 +309,11 @@ public class FabricContext {
 		}
 	}
 
+	/**
+	 * 依据交易id获取当前区块儿的信息。
+	 * @param txid
+	 * @return
+	 */
 	private BlockInfo queryBlockInfo(String txid) {
 		if (txid == null) {
 			return null;

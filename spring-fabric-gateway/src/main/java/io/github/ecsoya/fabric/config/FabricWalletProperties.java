@@ -9,6 +9,7 @@ import lombok.Data;
 
 /**
  * The wallet configuration of fabric gateway.
+ * 一组用户身份，与通道相连接时会被选取身份。
  * 
  * @author Jin Liu (jin.liu@soyatec.com)
  * @see Wallet

@@ -17,7 +17,7 @@ import org.hyperledger.fabric.gateway.spi.Checkpointer;
  * 
  * Overrite the default {@link Contract} to provided transactionId after
  * execution.
- * 
+ * 重写智能合约，提供TXID。
  * @author ecsoya
  *
  */

@@ -19,10 +19,10 @@ public class FabricGatewayProperties {
 	 * 
 	 * The default value of fabric gateway is 5 minutes, here I increased it to 10
 	 * minutes.
-	 * 
+	 *  Gateway相关的超时 操作。
 	 * @see GatewayImpl
 	 */
-	private long commitTimeout = 10;
+	private long commitTimeout = 10;   //提交的超时时间延长至10min.
 
 	/**
 	 * @since 1.0.6
@@ -32,7 +32,7 @@ public class FabricGatewayProperties {
 	/**
 	 * @since 1.0.6
 	 */
-	private long proposalTimeout = 5; // seconds
+	private long proposalTimeout = 5; // seconds   提议请求的超时时间。
 
 	/**
 	 * Discovery of gateway builder.
@@ -57,7 +57,9 @@ public class FabricGatewayProperties {
 
 	/**
 	 * The wallet configuration of gateway.
-	 * 
+	 *
+	 * Gateway下的wallet。代表一组身份？
+	 *
 	 * @see GatewayImpl
 	 */
 	private FabricWalletProperties wallet = new FabricWalletProperties();

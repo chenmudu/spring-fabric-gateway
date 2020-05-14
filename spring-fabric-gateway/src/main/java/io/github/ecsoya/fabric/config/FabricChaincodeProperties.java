@@ -17,23 +17,27 @@ public class FabricChaincodeProperties {
 	 * 
 	 * The org.hyperledger.fabric.gateway.Contract and {@link FabricContract} would
 	 * use this property to create the chaincode instance.
+	 * Contract 和 FabricContract用chaincode标识符去创建对应的实例。
 	 */
 	private String identify;
 
 	/**
 	 * The version of the chaincode, optionally. (This will be displayed at the
 	 * explorer)
+	 * 链码的版本，用于显示在浏览器上。
 	 */
 	private String version;
 
 	/**
 	 * The display name of the chaincode, optionally. (This will be displayed at the
 	 * explorer)
+	 * 链码的显示名，用于显示在浏览器上。
 	 */
 	private String name;
 
 	/**
 	 * Custom chaincode function names.
+	 * 对链码操作的方法的集合类。
 	 */
 	private FabricChaincodeFunctionProperties functions = new FabricChaincodeFunctionProperties();
 
